@@ -63,7 +63,7 @@ Section:NewToggle("Lantern Farm", "Auto collect lanterns", function(state)
 spawn(function()
         while EventCollect do
             wait()
-            pcall(function()www
+            pcall(function()
                     local LanternHunt = require(ReplicatedStorage.ClientModules.Game.Minigames.LanternHuntClient)
                     if not LanternHunt.is_game_in_progress() then
                         Player.Character:FindFirstChild("HumanoidRootPart").CFrame =
