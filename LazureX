@@ -1,0 +1,107 @@
+
+
+
+-- Ссылка на Библиотеку
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Robojini/Tuturial_UI_Library/main/UI_Template_1"))()
+
+-- Локальные --
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ReplicatedFirst = game:GetService("ReplicatedFirst")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+local Lighting = game:GetService("Lighting")
+local CoreGui = game:GetService("CoreGui")
+local HttpService = game:GetService("HttpService")
+local TeleportService = game:GetService("TeleportService")
+local Debris = game:GetService("Debris")
+local StarterGui = game:GetService("StarterGui")
+local Workspace = game:GetService("Workspace")
+local VirtualUser = game:GetService("VirtualUser")
+local Player = Players.LocalPlayer
+local wait = task.wait
+-------------Функции------------------
+
+--------------------------------------
+
+
+
+local colors = {
+	-- Цвет фона у Секций
+    SchemeColor = Color3.fromRGB(91, 175, 78),
+	-- Цвет фона в правой части UI
+	Background = Color3.fromRGB(15,15,15),
+	-- Цвет фона в левой части UI
+    Header = Color3.fromRGB(15,15,15),
+	-- Цвет текста
+    TextColor = Color3.fromRGB(255,255,255),
+	-- Цвет фона у кнопок
+    ElementColor = Color3.fromRGB(20, 20, 20)
+}
+-- Создать окно UI
+local Window = Library.CreateLib("LazureX", colors)
+
+-- Секция
+local Tab = Window:NewTab("Main")
+
+-- Подсекция
+local Section = Tab:NewSection("Farm Functions")
+
+-- Заголовок
+Section:NewLabel("created by makor444")
+
+-- Переключатель
+getgenv().EventCollect = false
+Section:NewToggle("Lantern Farm", "Auto collect lanterns", function(state)
+    if state then
+        EventCollect = true
+    else
+        EventCollect = false
+    end
+
+spawn(function()
+        while EventCollect do
+            wait()
+            pcall(function()www
+                    local LanternHunt = require(ReplicatedStorage.ClientModules.Game.Minigames.LanternHuntClient)
+                    if not LanternHunt.is_game_in_progress() then
+                        Player.Character:FindFirstChild("HumanoidRootPart").CFrame =
+                            Workspace.Interiors:FindFirstChildWhichIsA("Model"):FindFirstChild("Event").LanternHunt.JoinZone.Ring.CFrame
+                    end
+                    if LanternHunt.is_game_in_progress() then
+                       for i, v in pairs(Workspace:GetChildren()) do
+                             if v.Name == "LanternAsset" then
+                            	wait(0.25)
+                                game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v:GetModelCFrame()
+                                end 
+                            end 
+                       end                  
+                  end
+                )
+            end
+        end
+)
+    
+end)
+
+--[[ Слайдер
+Section:NewSlider("SliderText", "SliderInfo", 500, 0, function(s) -- 500 (Макс. значение) | 0 (Мин. значение)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+
+-- Текст Бокс
+Section:NewTextBox("TextboxText", "TextboxInfo", function(txt)
+	print(txt)
+end)
+
+-- Бинд на клавиши
+Section:NewKeybind("KeybindText", "KeybindInfo", Enum.KeyCode.F, function()
+	print("You just clicked the bind")
+end)
+
+-- Дропдаун
+Section:NewDropdown("DropdownText", "DropdownInf", {"Option 1", "Option 2", "Option 3"}, function(currentOption)
+    print(currentOption)
+end)
+]]
